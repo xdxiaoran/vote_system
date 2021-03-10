@@ -1,0 +1,25 @@
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;
+}
+
+body {
+    padding-top: 50px;
+}
+
+.title {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.text {
+    text-align: center;
+}

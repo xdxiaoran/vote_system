@@ -1,0 +1,19 @@
+config:
+  weChat:
+    url: ws://localhost:5555
+server:
+  port: 8080
+spring:
+  datasource:
+    username: root
+    password: admin
+    url: jdbc:mysql://127.0.0.1:3306/vote_system?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+  devtools:
+    restart:
+      enabled: true
+mybatis:
+  type-aliases-package: com.xdxiaoran.pojo
+  mapper-locations: classpath:mapper/*.xml
