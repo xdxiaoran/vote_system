@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <title th:text="'Vote for: ' + ${Title} + ' - Voter'"></title>
+
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+
+    <!-- Custom stylesheet -->
+    <link th:href="@{/css/vote/vote.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/fontawesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/pub/sticky_footer_navbar.css}" rel="stylesheet" type="text/css">
+
+    <!-- QR Code -->
+    <!-- JQuery -->
+    <script th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
+    <!-- Generate Modal -->
+    <span th:replace="/vote/modal/QR_cn.html"></span>
+    <!-- Import QR Generator -->
+    <script th:src="@{/js/vote/jquery.qrcode.min.js}"></script>
+    <!-- Generate QR -->
+    <script th:src="@{/js/generateQR.js}"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar"
+                    data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" data-target="#mainPage" data-toggle="modal">Voter</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="javascript: void(0);" th:text="'为 VoteID ' + ${VoteID} + ' 投票'"></a></li>
+                <li><a data-target="#toVoteID" data-toggle="modal" href="javascript: void(0);">前往 VoteID ..</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="padding: 0 5px 0;">
+    <div class="title">
+        <a class="pull-left" href="javascript: void(0);" onclick="switchLang()"></a>
+        <br>
+        <h2 th:text="${Title}"></h2>
+        <span th:utext="${Describe}"></span>
+        <p class="text-danger" style="font-size: 16px;" th:if="${Type} == 0">请做 <b>多项选择</b> : )</p>
+        <p class="text-danger" style="font-size: 16px;" th:if="${Type} == 1">请做 <b>单项选择</b> : )</p>
+        <p th:if="${Limit} != -1">
+            <i class="fa fa-info"></i>&nbsp;<span th:text="'最多选择选项：' + ${Limit}"></span>
+        </p>
+    </div>
+</div>
+
+<div class="text">
+    <div class="container">
+        <div th:each="entries:${Selection}">
+            <div class="row">
+                <!-- Progress -->
+                <div class="col-xs-5" id="divProgress">
+                    <div class="progress progress-striped active">
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"
+                             class="progress-bar progress-bar-success" role="progressbar"
+                             th:id="'progress' + ${entries['num']}"
+                             th:style="'width: ' + ${entries['percent']} + '%;'">
+                            <div class="count" th:text="${entries['count']}"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selection -->
+                <div class="col-xs-5" id="divSelection" th:text="${entries['selectionText']}"></div>
+
+                <!-- Vote -->
+                <div class="col-xs-2" id="divVote">
+                    <div class="vote">
+                        <div class="checkbox" th:if="${Type} == 0">
+                            <label>
+                                <input class="selections" name="optionsCheckbox" th:id="${entries['num']}"
+                                       type="checkbox">
+                            </label>
+                        </div>
+
+                        <div class="radio" th:if="${Type} == 1">
+                            <label>
+                                <input class="selections" name="optionsRadios" th:id="${entries['num']}" type="radio">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Submit button -->
+    <div aria-label="..." class="btn-group" role="group">
+        <button class="btn btn-default" id="submitButton" th:onclick="|submitVote(${Type}, ${VoteID})|" type="button"><i
+                class="fa fa-hand-stop-o"></i> 确定提交
+        </button>
+        <button class="btn btn-default" data-target="#shareQR" data-toggle="modal" type="button"><i
+                class="fa fa-qrcode"></i> 分享二维码
+        </button>
+    </div>
+    <!-- Alert window, controlled by JS -->
+    <br>
+    <div class="alert"></div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <br>
+        <span class="text-muted" th:text="'© ️' + ${YEAR}"></span><span>&nbsp;<a href=https://github.com/AdlerED/Voter>Voter</a>
+        <img height="32" src="/static/images/china.png" width="32"/></span>
+    </div>
+</footer>
+
+<span th:replace="/vote/modal/toIndex_cn"></span>
+<span th:replace="/vote/modal/toVoteID_cn"></span>
+
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/bootstrap/js/icheck.min.j}"></script>
+
+<!-- Custom JS -->
+<script th:src="@{/js/vote/submit_cn.js}"></script>
+<script th:src="@{/js/vote/toVoteID_cn.js}"></script>
+<script>
+    eventOnSelect([[${Limit}]]);
+</script>
+<script th:src="@{/js/vote/switchLanguage.js}"></script>
+</body>
+</html>

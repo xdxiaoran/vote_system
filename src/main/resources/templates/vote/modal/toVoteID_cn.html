@@ -1,0 +1,23 @@
+<div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="toVoteID" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" id="createFileTitle">前往 VoteID ..</span>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="col-form-label" for="voteID">VoteID</label>
+                        <input autofocus class="form-control" id="voteID" type="text">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="gotoVoteID" type="button">GO</button>
+            </div>
+        </div>
+    </div>
+</div>
