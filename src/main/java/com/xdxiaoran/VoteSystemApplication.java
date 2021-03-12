@@ -19,14 +19,14 @@ public class VoteSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(VoteSystemApplication.class, args);
     }
-//    @Bean
-//    public WXServerListener getWXServerListener() throws Exception {
-//        WXServerListener client = new WXServerListener(weChatUrl);
-//        client.connect();
-//        while (!client.getReadyState().equals(ReadyState.OPEN)) {
-//            Thread.sleep(500);
-//            System.out.println("正在建立连接......");
-//        }
-//        return client;
-//    }
+    @Bean
+    public WXServerListener getWXServerListener() throws Exception {
+        WXServerListener client = new WXServerListener(weChatUrl);
+        client.connect();
+        while (!client.getReadyState().equals(ReadyState.OPEN)) {
+            Thread.sleep(500);
+            System.out.println("正在建立连接......");
+        }
+        return client;
+    }
 }

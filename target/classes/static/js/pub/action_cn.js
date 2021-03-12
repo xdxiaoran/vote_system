@@ -26,10 +26,11 @@ function submitVote() {
                     setTimeout(function () {
                         if (data == -7426) {
                             $(".isError").html("<font color='red'>非法输入 :( </font>请检查。");
-                        } else {
-                            location.href = "/vote/cn/" + data;
+                        }else {
+                            // location.href = "/vote/cn/" + data;
+                            $(".isError").html("<font color='green'>恭喜您创建成功!</font>");
                         }
-                    }, 1000);
+                    }, 300);
                 }
             });
         } else {

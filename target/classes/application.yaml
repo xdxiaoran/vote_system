@@ -17,3 +17,9 @@ spring:
 mybatis:
   type-aliases-package: com.xdxiaoran.pojo
   mapper-locations: classpath:mapper/*.xml
+#pageHelper配置（官网推荐配置）
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

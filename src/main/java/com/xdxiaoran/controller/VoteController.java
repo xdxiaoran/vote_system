@@ -1,5 +1,7 @@
 package com.xdxiaoran.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.util.concurrent.RateLimiter;
 import com.xdxiaoran.analyzer.Selection;
 import com.xdxiaoran.analyzer.Serialize;
@@ -10,6 +12,8 @@ import com.xdxiaoran.pojo.Vote;
 import com.xdxiaoran.tool.GetDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +34,29 @@ public class VoteController {
     LoadingCacheServiceImpl loadingCacheService;
 
 
+    @RequestMapping("/votes/{pageNum}")
+    public String voteList(@PathVariable("pageNum") int pageNum,Model model) {
+        PageHelper.startPage(pageNum,8);
+        List<Vote> votes=voteMapper.getAllVotes();
+        PageInfo<Vote> page = new PageInfo<Vote>(votes);
+        model.addAttribute("page",page);
+        return "votelist";
+    }
+    @RequestMapping("/votedeatils/{VID}")
+    public ModelAndView voteDetails(@PathVariable Integer VID){
+        Vote vote = voteMapper.getVote(VID);
+        ModelAndView modelAndView = new ModelAndView("/vote/voteDeTail");
+        modelAndView.addObject("VoteID", vote.getVID());
+        modelAndView.addObject("Title", vote.getTitle());
+        modelAndView.addObject("Describe", vote.getDescribe());
+        modelAndView.addObject("Type", vote.getType());
+        modelAndView.addObject("Limit", vote.getLimit());
+        //Selection process
+        List<Map<String, String>> selects = Selection.analyze(vote.getSelection());
+        modelAndView.addObject("Selection", selects);
+        modelAndView.addObject("YEAR", GetDate.year());
+        return modelAndView;
+    }
     @RequestMapping("/vote/cn/{VID}")
     public ModelAndView showVoteCN(@PathVariable Integer VID) {
         Vote vote = voteMapper.getVote(VID);

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+
+	<!-- Custom stylesheet -->
+	<link th:href="@{/css/vote/vote.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/fontawesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/pub/sticky_footer_navbar.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<form style="margin-left: 30px;" action="/sendvote">
+	<div  th:each="room:${rooms}">
+<input type="radio" name="wxid" th:value="${room.wxid}" th:text="${room.name}">
+	</div>
+	<input name="vid" style="display: none;" th:value="${vid}">
+	<input id="submit" type="submit" text="提交">
+	<p id="message" style="color: green;"></p>
+<!--	<p th:text="${vid}"></p>-->
+</form>
+	<footer class="footer">
+				<div class="container">
+					<br>
+					<span class="text-muted">2021</span><span>&nbsp;<a href=https://github.com/xdxiaoran/vote_system/tree/master>Voter</a>
+
+        <img height="32" src="/images/china.png" width="32"/></span>
+				</div>
+			</footer>
+			<!-----end-copyright---->
+			<!----end-body------->
+	</body>
+<script src="/jquery/jquery-3.4.1.min.js"></script>
+<script>
+	$(function(){
+		$("#submit").on("click",function(){
+			$("#message").html("发送成功,即将返回...");
+		});
+	});
+</script>
+</html>

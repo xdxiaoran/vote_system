@@ -3,10 +3,14 @@ package com.xdxiaoran.mapper;
 import com.xdxiaoran.pojo.Vote;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Mapper
 @Service
 public interface VoteMapper {
+    @Select("SELECT * FROM Voter_Vote")
+    List<Vote> getAllVotes();
+
     @Select("SELECT * FROM Voter_Vote where VID = #{VID}")
     Vote getVote(@Param("VID") Integer VID);
 

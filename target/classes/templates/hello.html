@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-hello
+<table align='center' border='1' cellspacing='0'>
+    <tr>
+        <td>id</td>
+    </tr>
+    <tr th:each="c:${page.list}">
+        <td th:text="${c.VID}"></td>
+    </tr>
+</table>
 </body>
 </html>
